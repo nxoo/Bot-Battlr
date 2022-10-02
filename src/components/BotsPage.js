@@ -1,16 +1,20 @@
-import React from "react";
+import React, {useState} from "react";
 import YourBotArmy from "./YourBotArmy";
 import BotCollection from "./BotCollection";
 
 function BotsPage() {
-  //start here with your code for step one
+    const [botCollection, setBotCollection] = useState([])
 
-  return (
-    <div>
-      <YourBotArmy />
-      <BotCollection />
-    </div>
-  )
+    fetch('http://localhost:8002/bots')
+        .then(res => res.json())
+        .then(data => setBotCollection(data))
+
+    return (
+        <div>
+            <YourBotArmy  />
+            <BotCollection botCollection={botCollection} />
+        </div>
+    )
 }
 
 export default BotsPage;
